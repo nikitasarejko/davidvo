@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tinymce',
     'adminsortable2',
+    'django_s3_storage',
 ]
 
 MIDDLEWARE = [
@@ -144,6 +145,24 @@ MEDIA_URL = "/media/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
+STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
+
+# The AWS region to connect to.
+AWS_REGION = env("AWS_REGION")
+
+# The AWS access key to use.
+AWS_ACCESS_KEY_ID = env("AWS_KEY")
+
+# The AWS secret access key to use.
+AWS_SECRET_ACCESS_KEY = env("AWS_SECRET")
+
+# The name of the bucket to store files in.
+AWS_S3_BUCKET_NAME = env("AWS_BUCKET")
+
+# How to construct S3 URLs ("auto", "path", "virtual").
+AWS_S3_ADDRESSING_STYLE = "path"
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
